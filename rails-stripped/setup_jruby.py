@@ -8,11 +8,11 @@ def start(args, logfile, errfile):
   setup_util.replace_text("rails-stripped/config/database-jruby.yml", "host: .*", "host: " + args.database_host)
 
   try:
-    subprocess.check_call("rvm jruby-1.7.8 do bundle install --gemfile=Gemfile-jruby", shell=True, cwd="rails-stripped", stderr=errfile, stdout=logfile)
+    subprocess.check_call("rvm jruby-1.7.9 do bundle install --gemfile=Gemfile-jruby", shell=True, cwd="rails-stripped", stderr=errfile, stdout=logfile)
     subprocess.check_call("cp Gemfile-jruby Gemfile", shell=True, cwd="rails-stripped", stderr=errfile, stdout=logfile)
     subprocess.check_call("cp Gemfile-jruby.lock Gemfile.lock", shell=True, cwd="rails-stripped", stderr=errfile, stdout=logfile)
     subprocess.check_call("cp config/database-jruby.yml config/database.yml", shell=True, cwd="rails-stripped", stderr=errfile, stdout=logfile)
-    subprocess.Popen("rvm jruby-1.7.8 do jruby --server --fast -S bundle exec torqbox -b 0.0.0.0 -E production", shell=True, cwd="rails-stripped", stderr=errfile, stdout=logfile)
+    subprocess.Popen("rvm jruby-1.7.9 do jruby --server --2.0 -S bundle exec torqbox -b 0.0.0.0 -E production", shell=True, cwd="rails-stripped", stderr=errfile, stdout=logfile)
     return 0
   except subprocess.CalledProcessError:
     return 1
